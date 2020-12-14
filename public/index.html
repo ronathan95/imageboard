@@ -1,10 +1,34 @@
 <!doctype html>
 <html>
 <head>
-    <title></title>
+    <title>My Imageboard</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    <header>
+        <div class="logo-container">
+            <div class="square square-one face-top"></div>
+            <div class="square square-two face-top"></div>
+            <div class="square square-three face-top"></div>
+            <div class="square square-four side"></div>
+            <div class="square square-five side-2"></div>               
+        </div>
+        <h3>A picture is worth a thousand words..</h3>
+    </header>
+
+    <div id="gallery">
+        <div class="gallery-item" v-for="image in images">
+            <img :src="image.url">
+            <p>{{ image.title }}</p>
+        </div>
+    </div>
+
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
+    <script src="../js/script.js"></script>
 </body>
 </html>
