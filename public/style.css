@@ -128,32 +128,70 @@ p {
     font-weight: bold;
 }
 
+form {
+    margin-left: 50px;
+    margin-bottom: 20px;
+}
+
+#image-input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+#image-input + label {
+    font-size: 15px;
+    color: white;
+    background-color: #a61628;
+    display: inline-block;
+}
+
+#image-input:focus + label,
+#image-input + label:hover {
+    background-color: #e44a5d;
+}
+
+#image-input + label {
+    cursor: pointer;
+    padding-bottom: 3px;
+    padding-left: 3px;
+    padding-right: 5px;
+    border-radius: 13px;
+}
+
 #gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-gap: 1.5rem;
     justify-items: center;
     padding: 0;
     margin-left: 50px;
     margin-right: 50px;
-    /* margin-top: 10px; */
 }
 
 .gallery-item {
     padding: 0.5rem;
     font-size: 1.2rem;
     text-align: center;
-    border: grey 1px solid;
+    color: white;
+    border: #a61628 thick double;
     border-radius: 13px;
 }
 
 .gallery-item > img {
     max-width: 100%;
     height: auto;
-    object-fit: cover;
-    transition: opacity 0.25s ease-in-out;
+    object-fit: fill;
+    cursor: pointer;
 }
 
 .gallery-item > img:hover {
     opacity: 0.7;
+}
+
+.gallery-item > p {
+    background-color: #a61628;
 }

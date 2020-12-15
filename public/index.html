@@ -17,14 +17,30 @@
             <div class="square square-four side"></div>
             <div class="square square-five side-2"></div>               
         </div>
-        <h3>A picture is worth a thousand words..</h3>
+        <h3>A picture is worth a thousand words...</h3>
     </header>
 
-    <div id="gallery">
-        <div class="gallery-item" v-for="image in images">
-            <img :src="image.url">
-            <p>{{ image.title }}</p>
+    <div id="main">
+
+        <form method="POST" action="/upload" enctype="multipart/form-data">
+            <label for="title">Title</label>
+            <input id="title" type="text" name="title" v-model="title">
+            <label for="description">Description</label>
+            <input id="description" type="text" name="description" v-model="description">
+            <label for="username">Username</label>
+            <input id="username" type="text" name="username" v-model="username">
+            <input id="image-input" name="image" type="file" accept="image/*" @change="handleFileChange">
+            <label for="image-input">📷Choose an image</label>
+            <button @click="handleUpload">Upload</button>
+        </form>
+
+        <div id="gallery">
+            <div class="gallery-item" v-for="image in images">
+                <img :src="image.url">
+                <p>{{ image.title }}</p>
+            </div>
         </div>
+        
     </div>
 
     <script src="/js/vue.js"></script>
