@@ -50,7 +50,18 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
             username: req.body.username,
             url: s3Url + req.file.filename,
         };
-        res.json(newImage);
+        db.insertNewImage(
+            newImage.url,
+            newImage.username,
+            newImage.title,
+            newImage.description
+        )
+            .then(() => {
+                res.json(newImage);
+            })
+            .catch((err) => {
+                console.error("error on db.insertNewImage: ", err);
+            });
     } else {
         res.json({ success: false });
     }
