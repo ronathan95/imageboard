@@ -42,6 +42,18 @@ app.get("/images", (req, res) => {
         });
 });
 
+app.get("/image-info/:imageId", (req, res) => {
+    const { imageId } = req.params;
+    db.getImageInfo(imageId)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.error("error on db.getImageInfo: ", err);
+            res.json({ success: false });
+        });
+});
+
 app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
     if (req.file) {
         const newImage = {

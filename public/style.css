@@ -218,3 +218,13 @@ button {
 .gallery-item > p {
     background-color: #a61628;
 }
+
+.image-info {
+    border: black 1px solid;
+}
+
+.image-info > img {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+}

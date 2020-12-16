@@ -37,12 +37,27 @@
 
         <div id="gallery">
             <div class="gallery-item" v-for="image in images" :key="image.url">
-                <img :src="image.url">
+                <img @click="getImageId(image.id)" :src="image.url">
                 <p>{{ image.title }}</p>
             </div>
         </div>
-        
+        <image-info
+            v-if="imageId"
+            :image-id="imageId"
+            @close="closeMe"
+        >
+        </image-info>
     </div>
+
+    <script id="template" type="text/x-template">
+        <div class="image-info">
+            <img :src="url">
+            <h1>{{title}}</h1>
+            <h4>{{description}}</h4>
+            <p>Uploaded by {{username}} on {{createdAt}}</p>
+            <h2 @click="closeModal">X</h2>
+        </div>
+    </script>
 
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
