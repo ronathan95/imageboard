@@ -51,11 +51,13 @@
 
     <script id="template" type="text/x-template">
         <div class="image-info">
-            <img :src="url">
-            <h1>{{title}}</h1>
-            <h4>{{description}}</h4>
-            <p>Uploaded by {{username}} on {{createdAt}}</p>
-            <h2 @click="closeModal">X</h2>
+            <div class="container">
+                <img :src="url">
+                <h1>{{title}}</h1>
+                <h4>{{description}}</h4>
+                <p class="uploaded">Uploaded by {{username}} on {{createdAt}}</p>
+                <p class="btn" @click="closeModal">Close</p>
+            </div>
         </div>
     </script>
 

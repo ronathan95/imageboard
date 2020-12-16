@@ -220,11 +220,64 @@ button {
 }
 
 .image-info {
-    border: black 1px solid;
+    width: 98.5vw;
+    height: 100vh;
+    background-color: rgba(166, 22, 40, 0.5);
+    position: absolute;
+    top: 0;
 }
 
-.image-info > img {
+.container {
+    background-color: black;
+    color: white;
+    width: 88%;
+    margin-left: 6%;
+    margin-top: 5%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    text-align: center;
+}
+
+.container > img {
     width: 400px;
     height: 300px;
-    object-fit: cover;
+    object-fit: contain;
+}
+
+.container > h1,
+.container > h4,
+.container > p {
+    font-family: "Architects Daughter", cursive;
+    margin-bottom: 5px;
+}
+
+.container > p {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.uploaded {
+    color: grey;
+}
+
+.btn {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    border-radius: 20px;
+    height: 25px;
+    width: 70px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease 0s;
+    align-self: center;
+    padding-top: 2px;
+    margin-left: 50%;
+    transform: translate(-50%);
+}
+
+.btn:hover {
+    text-decoration: none;
+    color: white;
+    background-color: #e44a5d;
+    color: #fff;
 }
