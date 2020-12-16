@@ -36,7 +36,7 @@
         </form>
 
         <div id="gallery">
-            <div class="gallery-item" v-for="image in images">
+            <div class="gallery-item" v-for="image in images" :key="image.url">
                 <img :src="image.url">
                 <p>{{ image.title }}</p>
             </div>

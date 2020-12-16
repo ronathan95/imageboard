@@ -29,9 +29,14 @@ new Vue({
             formData.append("description", this.description);
             formData.append("username", this.username);
             formData.append("image", this.image);
-            axios.post("/upload", formData).then((res) => {
-                this.images.unshift(res.data);
-            });
+            axios
+                .post("/upload", formData)
+                .then((res) => {
+                    this.images.unshift(res.data);
+                })
+                .catch((err) => {
+                    console.error("erron on axios.post(/upload): ", err);
+                });
         },
     },
 });
