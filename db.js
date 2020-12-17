@@ -20,3 +20,18 @@ module.exports.getImageInfo = (imageId) => {
     const params = [imageId];
     return db.query(q, params);
 };
+
+module.exports.getMoreImages = (lastImageId) => {
+    const q =
+        "SELECT id, url, username, title, description, " +
+        "(SELECT id " +
+        "FROM images " +
+        "ORDER BY id ASC " +
+        "LIMIT 1 " +
+        ') AS "lowestId" FROM images ' +
+        "WHERE id < $1 " +
+        "ORDER BY id DESC " +
+        "LIMIT 6;";
+    const params = [lastImageId];
+    return db.query(q, params);
+};

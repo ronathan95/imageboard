@@ -82,7 +82,20 @@
                 this.imageId = null;
             },
             showMore: function () {
-                console.log("clicked on more");
+                var self = this;
+                var lastImageId = this.images[5].id;
+                axios
+                    .get("/show-more/" + lastImageId)
+                    .then(function (res) {
+                        self.images = res.data;
+                        //self.images.push(res.data);
+                    })
+                    .catch(function (err) {
+                        console.error(
+                            `erron on axios.get(/show-more/${lastImageId}): `,
+                            err
+                        );
+                    });
             },
         },
     });

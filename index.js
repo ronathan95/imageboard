@@ -87,4 +87,20 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
     }
 });
 
+app.get("/show-more/:lastImageId", (req, res) => {
+    const { lastImageId } = req.params;
+    db.getMoreImages(lastImageId)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.error("error on db.getMoreImages: ", err);
+            res.json({ success: false });
+        });
+});
+
+app.get("*", (req, res) => {
+    res.redirect("/");
+});
+
 app.listen(8080, () => console.log("Imageboard up and running on 8080"));
