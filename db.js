@@ -3,7 +3,7 @@ const db = spicedPg("postgres:postgres:postgres@localhost:5432/imageboard");
 
 module.exports.getImages = () => {
     return db.query(
-        "SELECT id, url, username, title, description FROM images ORDER BY created_at DESC LIMIT 6"
+        "SELECT id, url, title FROM images ORDER BY created_at DESC LIMIT 6"
     );
 };
 
@@ -23,7 +23,7 @@ module.exports.getImageInfo = (imageId) => {
 
 module.exports.getMoreImages = (lastImageId) => {
     const q =
-        "SELECT id, url, username, title, description, " +
+        "SELECT id, url, title, " +
         "(SELECT id " +
         "FROM images " +
         "ORDER BY id ASC " +

@@ -203,6 +203,10 @@ button {
     border-radius: 13px;
 }
 
+.hide {
+    visibility: hidden;
+}
+
 .gallery-item > img {
     max-width: 100%;
     width: 400px;
@@ -223,7 +227,7 @@ button {
     width: 98.5vw;
     height: 100vh;
     background-color: rgba(166, 22, 40, 0.5);
-    position: absolute;
+    position: fixed;
     top: 0;
 }
 

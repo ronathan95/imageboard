@@ -82,13 +82,24 @@
                 this.imageId = null;
             },
             showMore: function () {
+                var lastImageId = this.images[this.images.length - 1].id;
                 var self = this;
-                var lastImageId = this.images[5].id;
                 axios
                     .get("/show-more/" + lastImageId)
                     .then(function (res) {
-                        self.images = res.data;
-                        //self.images.push(res.data);
+                        //loop through the array of obj to push to images array
+                        // or apply method
+                        for (var i = 0; i < res.data.length; i++) {
+                            self.images.push(res.data[i]);
+                        }
+                        if (
+                            res.data[0].lowestId ==
+                            self.images[self.images.length - 1].id
+                        ) {
+                            document
+                                .getElementsByClassName("more")[0]
+                                .classList.add("hide");
+                        }
                     })
                     .catch(function (err) {
                         console.error(
