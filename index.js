@@ -8,7 +8,7 @@ const s3 = require("./s3");
 const { s3Url } = require("./config.json");
 
 app.use(
-    express.urlencoded({
+    express.json({
         extended: false,
     })
 );
@@ -96,6 +96,35 @@ app.get("/show-more/:lastImageId", (req, res) => {
         .catch((err) => {
             console.error("error on db.getMoreImages: ", err);
             res.json({ success: false });
+        });
+});
+
+app.get("/comments/:imageId", (req, res) => {
+    const { imageId } = req.params;
+    db.getComments(imageId)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.error("error on db.getComments: ", err);
+            res.json({ success: false });
+        });
+});
+
+app.post("/new-comment", (req, res) => {
+    const { imageId, comment, username } = req.body;
+    const newComment = {
+        comment: comment,
+        username: username,
+        created_at: "",
+    };
+    db.insertNewComment(imageId, comment, username)
+        .then(({ rows }) => {
+            newComment.created_at = rows[0].created_at;
+            res.json(newComment);
+        })
+        .catch((err) => {
+            console.error("error on db.insertNewComment: ", err);
         });
 });
 

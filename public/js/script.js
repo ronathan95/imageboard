@@ -1,4 +1,52 @@
 (function () {
+    Vue.component("comments", {
+        template: "#comments-template",
+        props: ["imageId"],
+        data: function () {
+            return {
+                comments: [],
+                comment: "",
+                commentUsername: "",
+            };
+        },
+        mounted: function () {
+            var self = this;
+            axios
+                .get("/comments/" + this.imageId)
+                .then(function (res) {
+                    self.comments = res.data;
+                })
+                .catch(function (err) {
+                    console.error(
+                        `erron on axios.get(/comments/${this.imageId}): `,
+                        err
+                    );
+                });
+        },
+        methods: {
+            addComment: function (e) {
+                var self = this;
+                e.preventDefault();
+                var newComment = {
+                    imageId: this.imageId,
+                    comment: this.comment,
+                    username: this.commentUsername,
+                };
+                axios
+                    .post("/new-comment", newComment)
+                    .then(function (res) {
+                        self.comments.unshift(res.data);
+                    })
+                    .catch(function (err) {
+                        console.error(
+                            "erron on axios.post(/new-comment): ",
+                            err
+                        );
+                    });
+            },
+        },
+    });
+
     Vue.component("image-info", {
         template: "#template",
         props: ["imageId"],
@@ -23,7 +71,10 @@
                     self.createdAt = res.data[0].created_at;
                 })
                 .catch(function (err) {
-                    `erron on axios.get(/image-info/${this.imageId}): `, err;
+                    console.error(
+                        `erron on axios.get(/image-info/${this.imageId}): `,
+                        err
+                    );
                 });
         },
         methods: {
@@ -87,8 +138,6 @@
                 axios
                     .get("/show-more/" + lastImageId)
                     .then(function (res) {
-                        //loop through the array of obj to push to images array
-                        // or apply method
                         for (var i = 0; i < res.data.length; i++) {
                             self.images.push(res.data[i]);
                         }
