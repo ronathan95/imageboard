@@ -40,6 +40,7 @@
                 <img @click="getImageId(image.id)" :src="image.url">
                 <p>{{ image.title }}</p>
             </div>
+            <button @click="showMore">More</button>
         </div>
         <image-info
             v-if="imageId"

@@ -3,13 +3,13 @@ const db = spicedPg("postgres:postgres:postgres@localhost:5432/imageboard");
 
 module.exports.getImages = () => {
     return db.query(
-        "SELECT id, url, username, title, description FROM images ORDER BY created_at DESC"
+        "SELECT id, url, username, title, description FROM images ORDER BY created_at DESC LIMIT 6"
     );
 };
 
 module.exports.insertNewImage = (url, username, title, description) => {
     const q =
-        "INSERT INTO images (url, username, title, description) VALUES ($1, $2, $3, $4)";
+        "INSERT INTO images (url, username, title, description) VALUES ($1, $2, $3, $4) RETURNING id";
     const params = [url, username, title, description];
     return db.query(q, params);
 };

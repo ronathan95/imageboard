@@ -7,6 +7,12 @@ const path = require("path");
 const s3 = require("./s3");
 const { s3Url } = require("./config.json");
 
+app.use(
+    express.urlencoded({
+        extended: false,
+    })
+);
+
 const diskStorage = multer.diskStorage({
     destination: (req, file, callback) => {
         callback(null, "uploads");
@@ -61,6 +67,7 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
             description: req.body.description,
             username: req.body.username,
             url: s3Url + req.file.filename,
+            id: "",
         };
         db.insertNewImage(
             newImage.url,
@@ -68,7 +75,8 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
             newImage.title,
             newImage.description
         )
-            .then(() => {
+            .then((imageId) => {
+                newImage.id = imageId.rows[0].id;
                 res.json(newImage);
             })
             .catch((err) => {

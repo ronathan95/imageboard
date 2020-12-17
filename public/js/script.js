@@ -81,6 +81,9 @@
             closeMe: function () {
                 this.imageId = null;
             },
+            showMore: function () {
+                console.log("clicked on more");
+            },
         },
     });
 })();
