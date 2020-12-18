@@ -9,20 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <header>
-        <div class="logo-container">
-            <div class="square square-one face-top"></div>
-            <div class="square square-two face-top"></div>
-            <div class="square square-three face-top"></div>
-            <div class="square square-four side"></div>
-            <div class="square square-five side-2"></div>               
-        </div>
-        <h3>A picture is worth a thousand words...</h3>
+        <h3>Imageboard</h3>
     </header>
-
+    
     <div id="main">
-
+        
         <form method="POST" action="/upload" enctype="multipart/form-data">
             <label for="title">Title</label>
             <input id="title" type="text" name="title" v-model="title">
@@ -34,10 +26,12 @@
             <label for="image-input">📷Choose an image</label>
             <button @click="handleUpload">Upload</button>
         </form>
-
+        
         <div id="gallery">
             <div class="gallery-item" v-for="image in images" :key="image.url">
-                <img @click="getImageId(image.id)" :src="image.url">
+                <a :href="'#' + image.id">
+                    <img :src="image.url">
+                </a>
                 <p>{{ image.title }}</p>
             </div>
             <button class="more" @click="showMore">More</button>

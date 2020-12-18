@@ -23,6 +23,22 @@
                     );
                 });
         },
+        watch: {
+            imageId: function () {
+                var self = this;
+                axios
+                    .get("/comments/" + this.imageId)
+                    .then(function (res) {
+                        self.comments = res.data;
+                    })
+                    .catch(function (err) {
+                        console.error(
+                            `erron on axios.get(/comments/${this.imageId}): `,
+                            err
+                        );
+                    });
+            },
+        },
         methods: {
             addComment: function (e) {
                 var self = this;
@@ -64,11 +80,16 @@
             axios
                 .get("/image-info/" + this.imageId)
                 .then(function (res) {
-                    self.title = res.data[0].title;
-                    self.description = res.data[0].description;
-                    self.url = res.data[0].url;
-                    self.username = res.data[0].username;
-                    self.createdAt = res.data[0].created_at;
+                    if (res.data.length == 0) {
+                        window.history.pushState({}, "", "/");
+                        self.$emit("close");
+                    } else {
+                        self.title = res.data[0].title;
+                        self.description = res.data[0].description;
+                        self.url = res.data[0].url;
+                        self.username = res.data[0].username;
+                        self.createdAt = res.data[0].created_at;
+                    }
                 })
                 .catch(function (err) {
                     console.error(
@@ -77,8 +98,34 @@
                     );
                 });
         },
+        watch: {
+            imageId: function () {
+                var self = this;
+                axios
+                    .get("/image-info/" + this.imageId)
+                    .then(function (res) {
+                        if (res.data.length == 0) {
+                            window.history.pushState({}, "", "/");
+                            self.$emit("close");
+                        } else {
+                            self.title = res.data[0].title;
+                            self.description = res.data[0].description;
+                            self.url = res.data[0].url;
+                            self.username = res.data[0].username;
+                            self.createdAt = res.data[0].created_at;
+                        }
+                    })
+                    .catch(function (err) {
+                        console.error(
+                            `erron on axios.get(/image-info/${this.imageId}): `,
+                            err
+                        );
+                    });
+            },
+        },
         methods: {
             closeModal: function () {
+                window.history.pushState({}, "", "/");
                 this.$emit("close");
             },
         },
@@ -92,7 +139,7 @@
             description: "",
             username: "",
             image: null,
-            imageId: null,
+            imageId: location.hash.slice(1),
         },
         mounted: function () {
             var self = this;
@@ -104,6 +151,9 @@
                 .catch(function (err) {
                     console.error("erron on axios.get(/images): ", err);
                 });
+            addEventListener("hashchange", function () {
+                self.imageId = location.hash.slice(1);
+            });
         },
         methods: {
             handleFileChange: function (e) {
@@ -125,9 +175,6 @@
                     .catch(function (err) {
                         console.error("erron on axios.post(/upload): ", err);
                     });
-            },
-            getImageId: function (imageId) {
-                this.imageId = imageId;
             },
             closeMe: function () {
                 this.imageId = null;
