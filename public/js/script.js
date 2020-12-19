@@ -14,7 +14,11 @@
             axios
                 .get("/comments/" + this.imageId)
                 .then(function (res) {
-                    self.comments = res.data;
+                    if (res.data.error) {
+                        console.error(res.data.message);
+                    } else {
+                        self.comments = res.data;
+                    }
                 })
                 .catch(function (err) {
                     console.error(
@@ -29,7 +33,11 @@
                 axios
                     .get("/comments/" + this.imageId)
                     .then(function (res) {
-                        self.comments = res.data;
+                        if (res.data.error) {
+                            console.error(res.data.message);
+                        } else {
+                            self.comments = res.data;
+                        }
                     })
                     .catch(function (err) {
                         console.error(
@@ -51,7 +59,11 @@
                 axios
                     .post("/new-comment", newComment)
                     .then(function (res) {
-                        self.comments.unshift(res.data);
+                        if (res.data.error) {
+                            console.error(res.data.message);
+                        } else {
+                            self.comments.unshift(res.data);
+                        }
                     })
                     .catch(function (err) {
                         console.error(
@@ -80,15 +92,19 @@
             axios
                 .get("/image-info/" + this.imageId)
                 .then(function (res) {
-                    if (res.data.length == 0) {
-                        window.history.pushState({}, "", "/");
-                        self.$emit("close");
+                    if (res.data.error) {
+                        console.error(res.data.message);
                     } else {
-                        self.title = res.data[0].title;
-                        self.description = res.data[0].description;
-                        self.url = res.data[0].url;
-                        self.username = res.data[0].username;
-                        self.createdAt = res.data[0].created_at;
+                        if (res.data.length == 0) {
+                            window.history.pushState({}, "", "/");
+                            self.$emit("close");
+                        } else {
+                            self.title = res.data[0].title;
+                            self.description = res.data[0].description;
+                            self.url = res.data[0].url;
+                            self.username = res.data[0].username;
+                            self.createdAt = res.data[0].created_at;
+                        }
                     }
                 })
                 .catch(function (err) {
@@ -104,15 +120,19 @@
                 axios
                     .get("/image-info/" + this.imageId)
                     .then(function (res) {
-                        if (res.data.length == 0) {
-                            window.history.pushState({}, "", "/");
-                            self.$emit("close");
+                        if (res.data.error) {
+                            console.error(res.data.message);
                         } else {
-                            self.title = res.data[0].title;
-                            self.description = res.data[0].description;
-                            self.url = res.data[0].url;
-                            self.username = res.data[0].username;
-                            self.createdAt = res.data[0].created_at;
+                            if (res.data.length == 0) {
+                                window.history.pushState({}, "", "/");
+                                self.$emit("close");
+                            } else {
+                                self.title = res.data[0].title;
+                                self.description = res.data[0].description;
+                                self.url = res.data[0].url;
+                                self.username = res.data[0].username;
+                                self.createdAt = res.data[0].created_at;
+                            }
                         }
                     })
                     .catch(function (err) {
@@ -146,7 +166,11 @@
             axios
                 .get("/images")
                 .then(function (res) {
-                    self.images = res.data;
+                    if (res.data.error) {
+                        console.error(res.data.message);
+                    } else {
+                        self.images = res.data;
+                    }
                 })
                 .catch(function (err) {
                     console.error("erron on axios.get(/images): ", err);
@@ -170,7 +194,11 @@
                 axios
                     .post("/upload", formData)
                     .then(function (res) {
-                        self.images.unshift(res.data);
+                        if (res.data.error) {
+                            console.error(res.data.message);
+                        } else {
+                            self.images.unshift(res.data);
+                        }
                     })
                     .catch(function (err) {
                         console.error("erron on axios.post(/upload): ", err);
@@ -185,16 +213,20 @@
                 axios
                     .get("/show-more/" + lastImageId)
                     .then(function (res) {
-                        for (var i = 0; i < res.data.length; i++) {
-                            self.images.push(res.data[i]);
-                        }
-                        if (
-                            res.data[0].lowestId ==
-                            self.images[self.images.length - 1].id
-                        ) {
-                            document
-                                .getElementsByClassName("more")[0]
-                                .classList.add("hide");
+                        if (res.data.error) {
+                            console.error(res.data.message);
+                        } else {
+                            for (var i = 0; i < res.data.length; i++) {
+                                self.images.push(res.data[i]);
+                            }
+                            if (
+                                res.data[0].lowestId ==
+                                self.images[self.images.length - 1].id
+                            ) {
+                                document
+                                    .getElementsByClassName("more")[0]
+                                    .classList.add("hide");
+                            }
                         }
                     })
                     .catch(function (err) {
