@@ -15,17 +15,19 @@
     
     <div id="main">
         
-        <form method="POST" action="/upload" enctype="multipart/form-data">
-            <label for="title">Title</label>
-            <input id="title" type="text" name="title" v-model="title">
-            <label for="description">Description</label>
-            <input id="description" type="text" name="description" v-model="description">
-            <label for="username">Username</label>
-            <input id="username" type="text" name="username" v-model="username">
-            <input id="image-input" name="image" type="file" accept="image/*" @change="handleFileChange">
-            <label for="image-input">📷Choose an image</label>
-            <button @click="handleUpload">Upload</button>
-        </form>
+        <div class="upload">
+            <form method="POST" action="/upload" enctype="multipart/form-data">
+                <label for="title">Title</label>
+                <input id="title" type="text" name="title" v-model="title">
+                <label for="description">Description</label>
+                <input id="description" type="text" name="description" v-model="description">
+                <label for="username">Username</label>
+                <input id="username" type="text" name="username" v-model="username">
+                <input id="image-input" name="image" type="file" accept="image/*" @change="handleFileChange">
+                <label for="image-input">Choose an image</label>
+                <button @click="handleUpload">Upload</button>
+            </form>
+        </div>
         
         <div id="gallery">
             <div class="gallery-item" v-for="image in images" :key="image.url">
@@ -34,8 +36,8 @@
                 </a>
                 <p>{{ image.title }}</p>
             </div>
-            <button class="more" @click="showMore">More</button>
         </div>
+        <button class="more" @click="showMore">More</button>
         <image-info
             v-if="imageId"
             :image-id="imageId"
@@ -50,7 +52,7 @@
                 <img :src="url">
                 <h1>{{title}}</h1>
                 <h4>{{description}}</h4>
-                <p class="uploaded">Uploaded by {{username}} on {{createdAt}}</p>
+                <p class="uploaded-by">Uploaded by {{username}} on {{createdAt}}</p>
                 <comments
                     :image-id="imageId">
                 </comments>

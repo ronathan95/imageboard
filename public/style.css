@@ -3,75 +3,15 @@
     margin: 0;
 }
 
-body {
-    background-color: #e38349;
+header {
+    margin-top: 30px;
+    margin-left: 150px;
+    margin-bottom: 50px;
 }
 
-h3 {
-    font-family: "Homemade Apple", cursive;
-    margin-bottom: 20px;
-}
-
-p {
-    font-family: "Calligraffitti", cursive;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-form {
-    margin-left: 50px;
-    margin-bottom: 20px;
-}
-
-#image-input {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-}
-
-#image-input + label {
-    font-size: 15px;
-    color: white;
-    background-color: #a61628;
-    display: inline-block;
-}
-
-#image-input:focus + label,
-#image-input + label:hover {
-    background-color: #e44a5d;
-}
-
-#image-input + label {
-    cursor: pointer;
-    padding-bottom: 3px;
-    padding-left: 3px;
-    padding-right: 5px;
-    border-radius: 13px;
-    font-weight: normal;
-}
-
-label {
-    font-family: "Architects Daughter", cursive;
-    font-weight: bold;
-}
-
-input {
-    box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.18);
-    border-radius: 13px;
-    border: none;
-}
-
-button {
-    font-family: "Architects Daughter", cursive;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 13px;
-    background-color: #e44a5d;
-    border: none;
-    box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.18);
+.upload {
+    margin-left: 150px;
+    margin-bottom: 50px;
 }
 
 #gallery {
@@ -80,17 +20,19 @@ button {
     grid-gap: 1.5rem;
     justify-items: center;
     padding: 0;
-    margin-left: 50px;
-    margin-right: 50px;
+    margin-left: 150px;
+    margin-right: 150px;
 }
 
 .gallery-item {
     padding: 0.5rem;
     font-size: 1.2rem;
     text-align: center;
-    color: white;
-    border: #a61628 thick double;
-    border-radius: 13px;
+}
+
+.more {
+    margin-left: 50%;
+    transform: translate(-50%);
 }
 
 .hide {
@@ -105,12 +47,8 @@ a > img {
     cursor: pointer;
 }
 
-.gallery-item > img:hover {
+a > img:hover {
     opacity: 0.7;
-}
-
-.gallery-item > p {
-    background-color: #a61628;
 }
 
 .image-info {
@@ -138,44 +76,19 @@ a > img {
     object-fit: contain;
 }
 
-.container > h1,
-.container > h4,
-.container > p {
-    font-family: "Architects Daughter", cursive;
-    margin-bottom: 5px;
-}
-
-.container > p {
-    font-size: 15px;
-    margin-bottom: 10px;
-}
-
-.uploaded {
-    color: grey;
-}
-
-.btn {
-    background-color: white;
-    color: black;
+button {
     cursor: pointer;
-    border-radius: 20px;
-    height: 25px;
-    width: 70px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-    transition: all 0.3s ease 0s;
-    align-self: center;
-    padding-top: 2px;
-    margin-left: 50%;
-    transform: translate(-50%);
 }
 
-.btn:hover {
-    text-decoration: none;
-    color: white;
-    background-color: #e44a5d;
-    color: #fff;
+#image-input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
 }
 
-/* .comments {
-    border: white 1px solid;
-} */
+#image-input + label {
+    cursor: pointer;
+}
