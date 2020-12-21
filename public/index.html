@@ -1,16 +1,15 @@
 <!doctype html>
 <html>
 <head>
-    <title>My Imageboard</title>
+    <title>Talking Walls</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h3>Imageboard</h3>
+        <h3>Talking Walls</h3>
     </header>
     
     <div id="main">
@@ -24,7 +23,7 @@
                 <label for="username">Username</label>
                 <input id="username" type="text" name="username" v-model="username">
                 <input id="image-input" name="image" type="file" accept="image/*" @change="handleFileChange">
-                <label for="image-input">Choose an image</label>
+                <label class="choose-btn" for="image-input">Choose an image</label>
                 <button @click="handleUpload">Upload</button>
             </form>
         </div>
@@ -37,7 +36,7 @@
                 <p>{{ image.title }}</p>
             </div>
         </div>
-        <button class="more" @click="showMore">More</button>
+        <button class="more" @click="showMore">More Walls</button>
         <image-info
             v-if="imageId"
             :image-id="imageId"
@@ -50,25 +49,30 @@
         <div class="image-info">
             <div class="container">
                 <img :src="url">
-                <h1>{{title}}</h1>
-                <h4>{{description}}</h4>
-                <p class="uploaded-by">Uploaded by {{username}} on {{createdAt}}</p>
-                <comments
+                <div class="content">
+                    <p class="close-btn" @click="closeModal">Close</p>
+                    <div class="text">
+                        <h1 class="title">{{title}}</h1>
+                        <h2 class="description">{{description}}</h2>
+                        <p class="uploaded-by">Uploaded by {{username}} on {{createdAt}}</p>
+                    </div>
+                    <comments
                     :image-id="imageId">
-                </comments>
-                <p class="btn" @click="closeModal">Close</p>
+                    </comments>
+                    <p class="del-btn" @click="deleteImage">Delete Image</p>
+                </div>
             </div>
         </div>
     </script>
 
     <script id="comments-template" type="text/x-template">
         <div class="comments">
-            <h4>Comments</h4>
+            <h2>Comments</h2>
             <label for="comment">comment</label>
             <input id="comment" type="text" name="comment" v-model="comment">
             <label for="comment-username">username</label>
             <input id="comment-username" type="text" name="commentUsername" v-model="commentUsername">
-            <button @click="addComment">Add Comment</button>
+            <button id="add-btn" @click="addComment">Add Comment</button>
             <div class="related-comments" v-for="comment in comments" :key="comment.comment">
                 <h4>{{comment.comment}}</h4>
                 <p>{{comment.username}} on {{comment.created_at}}</p>

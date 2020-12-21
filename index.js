@@ -174,6 +174,11 @@ app.post("/new-comment", (req, res) => {
         });
 });
 
+app.get("/delete-image/:imageId", (req, res) => {
+    const { imageId } = req.params;
+    db.deleteImage(imageId);
+});
+
 app.get("*", (req, res) => {
     res.redirect("/");
 });

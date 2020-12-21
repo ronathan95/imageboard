@@ -103,7 +103,9 @@
                             self.description = res.data[0].description;
                             self.url = res.data[0].url;
                             self.username = res.data[0].username;
-                            self.createdAt = res.data[0].created_at;
+                            self.createdAt = formatDateTime(
+                                res.data[0].created_at
+                            );
                         }
                     }
                 })
@@ -148,6 +150,21 @@
                 window.history.pushState({}, "", "/");
                 this.$emit("close");
             },
+            deleteImage: function () {
+                window.history.pushState({}, "", "/");
+                this.$emit("close");
+                axios
+                    .get("/delete-image/" + this.imageId)
+                    .then(function () {
+                        console.log(`image with id ${imageId} was deleted`);
+                    })
+                    .catch(function (err) {
+                        console.error(
+                            `erron on axios.get(/delete-image/${this.imageId}): `,
+                            err
+                        );
+                    });
+            },
         },
     });
 
@@ -178,6 +195,23 @@
             addEventListener("hashchange", function () {
                 self.imageId = location.hash.slice(1);
             });
+        },
+        watch: {
+            // imageId: function () {
+            //     var self = this;
+            //     axios
+            //         .get("/images")
+            //         .then(function (res) {
+            //             if (res.data.error) {
+            //                 console.error(res.data.message);
+            //             } else {
+            //                 self.images = res.data;
+            //             }
+            //         })
+            //         .catch(function (err) {
+            //             console.error("erron on axios.get(/images): ", err);
+            //         });
+            // },
         },
         methods: {
             handleFileChange: function (e) {
@@ -238,4 +272,15 @@
             },
         },
     });
+
+    const formatDateTime = (date) => {
+        return new Intl.DateTimeFormat("en-US", {
+            year: "numeric",
+            month: "numeric",
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            hour12: true,
+        }).format(new Date(date));
+    };
 })();

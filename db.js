@@ -49,3 +49,32 @@ module.exports.insertNewComment = (imageId, comment, username) => {
     const params = [imageId, comment, username];
     return db.query(q, params);
 };
+
+deleteImageFromComments = (imageId) => {
+    const q = "DELETE FROM comments WHERE image_id = ($1)";
+    const params = [imageId];
+    return db.query(q, params);
+};
+
+deleteImageFromImages = (imageId) => {
+    const q = "DELETE FROM images WHERE id = ($1)";
+    const params = [imageId];
+    return db.query(q, params);
+};
+
+module.exports.deleteImage = (imageId) => {
+    deleteImageFromComments(imageId)
+        .then(() => {
+            deleteImageFromImages(imageId)
+                .then(() => {
+                    console.log(`image with id ${imageId} was deleted`);
+                    return;
+                })
+                .catch((err) => {
+                    console.error("error on deleteImageFromImages: ", err);
+                });
+        })
+        .catch((err) => {
+            console.error("error on deleteImageFromComments: ", err);
+        });
+};
